@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Experiencia Nómada — Guía Pulsar NS</title>
+  <meta name="description" content="Guía interna de compatibilidad de piezas plásticas para Bajaj Pulsar NS en Nómada Motopartes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* VARIABLES & DESIGN SYSTEM */
+    :root {
+      --nm-ce-brand-black: #121212;
+      --nm-ce-brand-dark-gray: #1e1e1e;
+      --nm-ce-brand-red: #e53e3e;
+      --nm-ce-brand-red-hover: #c53030;
+      --nm-ce-brand-red-light: #fff5f5;
+      --nm-ce-brand-white: #ffffff;
+      --nm-ce-brand-gray-light: #f7fafc;
+      --nm-ce-brand-gray-border: #e2e8f0;
+      --nm-ce-text-dark: #2d3748;
+      --nm-ce-text-muted: #718096;
+      
+      /* State Badge Colors */
+      --nm-ce-badge-green-bg: #c6f6d5;
+      --nm-ce-badge-green-text: #22543d;
+      --nm-ce-badge-orange-bg: #feebc8;
+      --nm-ce-badge-orange-text: #744210;
+      --nm-ce-badge-red-bg: #fed7d7;
+      --nm-ce-badge-red-text: #742a2a;
+      
+      --nm-ce-shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --nm-ce-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --nm-ce-shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      
+      --nm-ce-transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --nm-ce-transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* BASE RESET & TYPOGRAPHY */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--nm-ce-brand-gray-light);
+      color: var(--nm-ce-text-dark);
+      line-height: 1.6;
+      font-size: 16px;
+      padding-top: 40px; /* space for top fixed bar */
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* TOP BAR & FLAGS */
+    .nm-ce-top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+      border-bottom: 1px solid #2d3748;
+    }
+
+    .nm-ce-top-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .nm-ce-top-logo svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-top-badges {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nm-ce-badge-top {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .nm-ce-badge-top.nm-ce-internal {
+      background-color: #2d3748;
+      color: #a0aec0;
+      border: 1px solid #4a5568;
+    }
+
+    .nm-ce-badge-top.nm-ce-pulsar {
+      background-color: var(--nm-ce-brand-red);
+      color: var(--nm-ce-brand-white);
+    }
+
+    /* MAIN CONTAINER */
+    .nm-ce-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* HEADER */
+    .nm-ce-header {
+      background-color: var(--nm-ce-brand-white);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: var(--nm-ce-shadow-sm);
+      border-left: 6px solid var(--nm-ce-brand-red);
+      margin-bottom: 32px;
+    }
+
+    .nm-ce-header-subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--nm-ce-brand-red);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .nm-ce-header-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--nm-ce-brand-black);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .nm-ce-header-desc {
+      color: var(--nm-ce-text-muted);
+      font-size: 16px;
+      max-width: 800px;
+    }
+
+    /* ALERTA PRINCIPAL (CHECKLIST) */
+    .nm-ce-alert-box {
+      background-color: var(--nm-ce-brand-white);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: var(--nm-ce-shadow-md);
+    }
+
+    .nm-ce-alert-box-header {
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nm-ce-alert-box-header svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-alert-box-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .nm-ce-alert-box-content {
+      padding: 24px;
+    }
+
+    .nm-ce-checklist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+      list-style: none;
+    }
+
+    .nm-ce-checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--nm-ce-text-dark);
+      padding: 10px;
+      background: var(--nm-ce-brand-gray-light);
+      border-radius: 8px;
+      border: 1px solid var(--nm-ce-brand-gray-border);
+    }
+
+    .nm-ce-checklist-number {
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .nm-ce-alert-box-footer {
+      background-color: var(--nm-ce-brand-red-light);
+      border-top: 1px dashed var(--nm-ce-brand-red);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nm-ce-alert-box-footer svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--nm-ce-brand-red);
+      flex-shrink: 0;
+    }
+
+    .nm-ce-alert-box-footer p {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--nm-ce-brand-red-hover);
+    }
+
+    /* SEARCH & FILTER AREA */
+    .nm-ce-search-container {
+      background-color: var(--nm-ce-brand-white);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: var(--nm-ce-shadow-sm);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      margin-bottom: 40px;
+      position: sticky;
+      top: 48px;
+      z-index: 900;
+    }
+
+    .nm-ce-search-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .nm-ce-search-input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 2px solid var(--nm-ce-brand-gray-border);
+      border-radius: 8px;
+      color: var(--nm-ce-text-dark);
+      background-color: var(--nm-ce-brand-gray-light);
+      outline: none;
+      transition: var(--nm-ce-transition-fast);
+    }
+
+    .nm-ce-search-input:focus {
+      border-color: var(--nm-ce-brand-red);
+      background-color: var(--nm-ce-brand-white);
+      box-shadow: 0 0 0 3px rgba(229, 62, 98, 0.15);
+    }
+
+    .nm-ce-search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      fill: var(--nm-ce-text-muted);
+      pointer-events: none;
+    }
+
+    /* FILTER CHIPS */
+    .nm-ce-filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nm-ce-chip {
+      background-color: var(--nm-ce-brand-gray-light);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      color: var(--nm-ce-text-dark);
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--nm-ce-transition-fast);
+    }
+
+    .nm-ce-chip:hover {
+      background-color: var(--nm-ce-brand-gray-border);
+    }
+
+    .nm-ce-chip.nm-ce-active {
+      background-color: var(--nm-ce-brand-black);
+      border-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+    }
+
+    .nm-ce-chip.nm-ce-active-red {
+      background-color: var(--nm-ce-brand-red);
+      border-color: var(--nm-ce-brand-red);
+      color: var(--nm-ce-brand-white);
+    }
+
+    /* SECTION TITLE */
+    .nm-ce-section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--nm-ce-brand-black);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nm-ce-section-title::after {
+      content: '';
+      flex-grow: 1;
+      height: 1px;
+      background-color: var(--nm-ce-brand-gray-border);
+    }
+
+    /* COMPATIBILITY MATRIX TABLE */
+    .nm-ce-matrix-card {
+      background-color: var(--nm-ce-brand-white);
+      border-radius: 12px;
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      box-shadow: var(--nm-ce-shadow-sm);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    .nm-ce-table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nm-ce-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .nm-ce-matrix-table th {
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      font-weight: 600;
+      padding: 14px 20px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .nm-ce-matrix-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--nm-ce-brand-gray-border);
+      vertical-align: middle;
+    }
+
+    .nm-ce-matrix-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .nm-ce-matrix-table tbody tr:hover {
+      background-color: rgba(0, 0, 0, 0.015);
+    }
+
+    .nm-ce-model-name {
+      font-weight: 700;
+      color: var(--nm-ce-brand-black);
+    }
+
+    /* BADGES */
+    .nm-ce-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.25px;
+    }
+
+    .nm-ce-badge-green {
+      background-color: var(--nm-ce-badge-green-bg);
+      color: var(--nm-ce-badge-green-text);
+    }
+
+    .nm-ce-badge-orange {
+      background-color: var(--nm-ce-badge-orange-bg);
+      color: var(--nm-ce-badge-orange-text);
+    }
+
+    .nm-ce-badge-red {
+      background-color: var(--nm-ce-badge-red-bg);
+      color: var(--nm-ce-badge-red-text);
+    }
+
+    .nm-ce-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: currentColor;
+    }
+
+    /* CARDS GRID (FICHAS) */
+    .nm-ce-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .nm-ce-card {
+      background-color: var(--nm-ce-brand-white);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 12px;
+      box-shadow: var(--nm-ce-shadow-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--nm-ce-transition-normal);
+    }
+
+    .nm-ce-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--nm-ce-shadow-lg);
+      border-color: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-card-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--nm-ce-brand-gray-border);
+      background-color: var(--nm-ce-brand-gray-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .nm-ce-card-title-group h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--nm-ce-brand-black);
+      line-height: 1.2;
+    }
+
+    .nm-ce-card-years {
+      font-size: 13px;
+      color: var(--nm-ce-text-muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .nm-ce-card-body {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .nm-ce-parts-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nm-ce-parts-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--nm-ce-text-muted);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nm-ce-parts-title svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .nm-ce-part-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .nm-ce-part-item svg {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .nm-ce-part-item.nm-ce-fit svg {
+      fill: #38a169;
+    }
+
+    .nm-ce-part-item.nm-ce-nofit svg {
+      fill: #e53e3e;
+    }
+
+    .nm-ce-card-alert {
+      background-color: var(--nm-ce-brand-red-light);
+      border: 1px solid var(--nm-ce-badge-red-bg);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .nm-ce-card-alert svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--nm-ce-brand-red);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .nm-ce-card-alert-content {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--nm-ce-badge-red-text);
+    }
+
+    .nm-ce-card-msg {
+      background-color: var(--nm-ce-brand-gray-light);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--nm-ce-text-dark);
+      position: relative;
+    }
+
+    .nm-ce-card-msg-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--nm-ce-text-muted);
+      margin-bottom: 6px;
+      font-style: normal;
+    }
+
+    .nm-ce-card-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--nm-ce-brand-gray-border);
+      background-color: var(--nm-ce-brand-white);
+    }
+
+    .nm-ce-btn-copy {
+      width: 100%;
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--nm-ce-transition-fast);
+    }
+
+    .nm-ce-btn-copy:hover {
+      background-color: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-btn-copy svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* COMPONENT GUIDE */
+    .nm-ce-components-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .nm-ce-component-card {
+      background-color: var(--nm-ce-brand-white);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--nm-ce-shadow-sm);
+    }
+
+    .nm-ce-component-img {
+      width: 80px;
+      height: 80px;
+      background-color: var(--nm-ce-brand-gray-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      border: 2px solid var(--nm-ce-brand-gray-border);
+    }
+
+    .nm-ce-component-img svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--nm-ce-brand-black);
+    }
+
+    .nm-ce-component-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--nm-ce-brand-black);
+      margin-bottom: 8px;
+    }
+
+    .nm-ce-component-card p {
+      font-size: 13px;
+      color: var(--nm-ce-text-muted);
+    }
+
+    /* COLORS SECTION */
+    .nm-ce-colors-box {
+      background-color: var(--nm-ce-brand-white);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 48px;
+      box-shadow: var(--nm-ce-shadow-sm);
+    }
+
+    .nm-ce-colors-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .nm-ce-color-swatch-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      background: var(--nm-ce-brand-gray-light);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nm-ce-color-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .nm-ce-note-box {
+      background-color: var(--nm-ce-brand-gray-light);
+      border-left: 4px solid var(--nm-ce-brand-red);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--nm-ce-text-muted);
+    }
+
+    /* RED WARNINGS SECTION (BLACK & RED) */
+    .nm-ce-warnings-container {
+      background-color: var(--nm-ce-brand-black);
+      border-radius: 12px;
+      padding: 32px 24px;
+      margin-bottom: 48px;
+      color: var(--nm-ce-brand-white);
+    }
+
+    .nm-ce-warnings-container h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--nm-ce-brand-white);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nm-ce-warnings-container h3 svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-warnings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .nm-ce-warning-card {
+      background-color: var(--nm-ce-brand-dark-gray);
+      border-left: 4px solid var(--nm-ce-brand-red);
+      padding: 16px;
+      border-radius: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid #2d3748;
+      border-left-width: 4px;
+      border-left-color: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-warning-card svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--nm-ce-brand-red);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .nm-ce-warning-card-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    /* DECISION FLOW */
+    .nm-ce-flow-container {
+      background-color: var(--nm-ce-brand-white);
+      border-radius: 12px;
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      padding: 32px 24px;
+      margin-bottom: 48px;
+      box-shadow: var(--nm-ce-shadow-sm);
+    }
+
+    .nm-ce-flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .nm-ce-flow-step {
+      background-color: var(--nm-ce-brand-gray-light);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 8px;
+      padding: 16px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--nm-ce-brand-black);
+      position: relative;
+    }
+
+    .nm-ce-flow-step-number {
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .nm-ce-flow-arrow {
+      align-self: center;
+      justify-self: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-flow-arrow svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* WHATSAPP TEMPLATES HUBS */
+    .nm-ce-whatsapp-hub {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .nm-ce-whatsapp-template {
+      background-color: var(--nm-ce-brand-white);
+      border: 1px solid var(--nm-ce-brand-gray-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--nm-ce-shadow-sm);
+    }
+
+    .nm-ce-whatsapp-template h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--nm-ce-brand-black);
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--nm-ce-brand-gray-border);
+      padding-bottom: 8px;
+    }
+
+    .nm-ce-whatsapp-template pre {
+      background-color: var(--nm-ce-brand-gray-light);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: inherit;
+      font-size: 13px;
+      white-space: pre-wrap;
+      color: var(--nm-ce-text-dark);
+      flex-grow: 1;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      border: 1px solid var(--nm-ce-brand-gray-border);
+    }
+
+    /* EMPTY STATES */
+    .nm-ce-empty-state {
+      background-color: var(--nm-ce-brand-white);
+      border: 2px dashed var(--nm-ce-brand-gray-border);
+      border-radius: 12px;
+      padding: 48px 24px;
+      text-align: center;
+      display: none;
+      margin-bottom: 48px;
+    }
+
+    .nm-ce-empty-state svg {
+      width: 48px;
+      height: 48px;
+      fill: var(--nm-ce-text-muted);
+      margin-bottom: 16px;
+    }
+
+    .nm-ce-empty-state h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--nm-ce-brand-black);
+      margin-bottom: 8px;
+    }
+
+    .nm-ce-empty-state p {
+      font-size: 14px;
+      color: var(--nm-ce-text-muted);
+    }
+
+    /* FOOTER */
+    .nm-ce-footer {
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      padding: 40px 24px;
+      text-align: center;
+      border-radius: 12px;
+      margin-top: 60px;
+    }
+
+    .nm-ce-footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .nm-ce-footer-logo svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-footer-subtext {
+      font-size: 13px;
+      color: #718096;
+      margin-top: 8px;
+    }
+
+    /* TOAST NOTIFICATION */
+    .nm-ce-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--nm-ce-brand-black);
+      color: var(--nm-ce-brand-white);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: var(--nm-ce-shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid var(--nm-ce-brand-red);
+    }
+
+    .nm-ce-toast.nm-ce-show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .nm-ce-toast svg {
+      width: 16px;
+      height: 16px;
+      fill: #38a169;
+    }
+
+    /* RESPONSIVE CSS */
+    @media (max-width: 768px) {
+      .nm-ce-header {
+        padding: 24px;
+      }
+      .nm-ce-header-title {
+        font-size: 28px;
+      }
+      .nm-ce-search-container {
+        padding: 16px;
+        top: 40px;
+      }
+      .nm-ce-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .nm-ce-flow-steps {
+        grid-template-columns: 1fr;
+      }
+      .nm-ce-flow-arrow {
+        transform: rotate(90deg);
+        margin: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FIXED TOP BAR -->
+  <div class="nm-ce-top-bar">
+    <div class="nm-ce-top-logo">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z"/>
+      </svg>
+      <span>NÓMADA MOTOPARTES</span>
+    </div>
+    <div class="nm-ce-top-badges">
+      <span class="nm-ce-badge-top nm-ce-internal">Uso interno</span>
+      <span class="nm-ce-badge-top nm-ce-pulsar">Pulsar NS</span>
+    </div>
+  </div>
+
+  <div class="nm-ce-wrapper">
+
+    <!-- HEADER -->
+    <header class="nm-ce-header">
+      <p class="nm-ce-header-subtitle">Centro de Experiencia Nómada</p>
+      <h1 class="nm-ce-header-title">Guía interna de compatibilidad — Bajaj Pulsar NS</h1>
+      <p class="nm-ce-header-desc">
+        Consulta rápida y en tiempo real diseñada para que asesores, ventas y equipo de WhatsApp validen qué piezas plásticas son compatibles con cada referencia Pulsar NS según el modelo, año y versión exacta.
+      </p>
+    </header>
+
+    <!-- BLOQUE DE ALERTA PRINCIPAL -->
+    <section class="nm-ce-alert-box">
+      <div class="nm-ce-alert-box-header">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        <h2>Antes de vender, valida estos datos</h2>
+      </div>
+      <div class="nm-ce-alert-box-content">
+        <ul class="nm-ce-checklist">
+          <li class="nm-ce-checklist-item">
+            <span class="nm-ce-checklist-number">1</span>
+            <span><strong>Modelo exacto:</strong> NS 125, NS 150, NS 160 o NS 200</span>
+          </li>
+          <li class="nm-ce-checklist-item">
+            <span class="nm-ce-checklist-number">2</span>
+            <span><strong>Año de la moto:</strong> Modelo de fabricación/registro</span>
+          </li>
+          <li class="nm-ce-checklist-item">
+            <span class="nm-ce-checklist-number">3</span>
+            <span><strong>Versión:</strong> Carburada, FI, UG FI o UG 2.0</span>
+          </li>
+          <li class="nm-ce-checklist-item">
+            <span class="nm-ce-checklist-number">4</span>
+            <span><strong>Color solicitado:</strong> Verificar disponibilidad real</span>
+          </li>
+          <li class="nm-ce-checklist-item">
+            <span class="nm-ce-checklist-number">5</span>
+            <span><strong>Faro frontal:</strong> ¿Carenaje con farola o sin farola?</span>
+          </li>
+          <li class="nm-ce-checklist-item">
+            <span class="nm-ce-checklist-number">6</span>
+            <span><strong>Tapas de tanque:</strong> ¿Desea las aletas del tanque?</span>
+          </li>
+          <li class="nm-ce-checklist-item">
+            <span class="nm-ce-checklist-number">7</span>
+            <span><strong>Calcomanías:</strong> Confirmar si aplica o no según ref.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="nm-ce-alert-box-footer">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+        <p>No vender kit completo sin validar modelo, año y versión.</p>
+      </div>
+    </section>
+
+    <!-- BUSCADOR & FILTROS -->
+    <section class="nm-ce-search-container">
+      <div class="nm-ce-search-wrapper">
+        <svg class="nm-ce-search-icon" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="text" id="nmCeSearch" class="nm-ce-search-input" placeholder="Buscar por modelo, año o versión... (Ej. NS 200 2016, NS 160 FI, UG 2.0)">
+      </div>
+      <div class="nm-ce-filter-chips">
+        <div class="nm-ce-chip nm-ce-active" data-filter="all">Todos</div>
+        <div class="nm-ce-chip" data-filter="kit-completo">Kit completo</div>
+        <div class="nm-ce-chip" data-filter="parcial">Compatibilidad parcial</div>
+        <div class="nm-ce-chip" data-filter="ns125">NS 125</div>
+        <div class="nm-ce-chip" data-filter="ns150">NS 150</div>
+        <div class="nm-ce-chip" data-filter="ns160">NS 160</div>
+        <div class="nm-ce-chip" data-filter="ns200">NS 200</div>
+        <div class="nm-ce-chip" data-filter="carburada">Carburada</div>
+        <div class="nm-ce-chip" data-filter="fi">FI</div>
+        <div class="nm-ce-chip" data-filter="ug-fi">UG FI</div>
+        <div class="nm-ce-chip" data-filter="ug-20">UG 2.0</div>
+      </div>
+    </section>
+
+    <!-- NO RESULTS FOUND BANNER -->
+    <div class="nm-ce-empty-state" id="nmCeEmptyState">
+      <svg viewBox="0 0 24 24">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+      <h3>No encontramos coincidencias</h3>
+      <p>Verifica el modelo, año o versión ingresados o prueba limpiando los filtros.</p>
+    </div>
+
+    <!-- MATRIZ RÁPIDA DE COMPATIBILIDAD -->
+    <h2 class="nm-ce-section-title">Matriz rápida de compatibilidad</h2>
+    <div class="nm-ce-matrix-card">
+      <div class="nm-ce-table-responsive">
+        <table class="nm-ce-matrix-table">
+          <thead>
+            <tr>
+              <th>Modelo</th>
+              <th>Año</th>
+              <th>Compatibilidad</th>
+              <th>Piezas Principales</th>
+            </tr>
+          </thead>
+          <tbody id="nmCeMatrixBody">
+            <!-- Row 1 -->
+            <tr data-model="ns200" data-version="carburada" data-comp="kit-completo" data-tags="ns 200 carburada 2012 2013 2014 2015 2016">
+              <td class="nm-ce-model-name">NS 200 carburada</td>
+              <td>2012–2016</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-green"><span class="nm-ce-badge-dot"></span>Kit completo</span>
+              </td>
+              <td>Carenaje, guardabarro, tapas tanque, laterales, cola, visor y aletas</td>
+            </tr>
+            <!-- Row 2 -->
+            <tr data-model="ns125" data-version="ug-20" data-comp="kit-completo" data-tags="ns 125 2024 2025 2026">
+              <td class="nm-ce-model-name">NS 125</td>
+              <td>2024–2026</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-green"><span class="nm-ce-badge-dot"></span>Kit completo</span>
+              </td>
+              <td>Carenaje, guardabarro tipo NS160, tapas, cola, visor y aletas</td>
+            </tr>
+            <!-- Row 3 -->
+            <tr data-model="ns150" data-version="carburada" data-comp="kit-completo" data-tags="ns 150 carburada 2016 2017 2018 2019 2020">
+              <td class="nm-ce-model-name">NS 150 carburada</td>
+              <td>2016–2020</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-green"><span class="nm-ce-badge-dot"></span>Kit completo</span>
+              </td>
+              <td>Carenaje, guardabarro tipo NS160, tapas, cola, visor y aletas</td>
+            </tr>
+            <!-- Row 4 -->
+            <tr data-model="ns200" data-version="fi" data-comp="parcial" data-tags="ns 200 fi 2017 2018 2019 2020 2021 2022 2023 2024">
+              <td class="nm-ce-model-name">NS 200 FI</td>
+              <td>2017–2024</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+              </td>
+              <td>Todo menos tapas laterales</td>
+            </tr>
+            <!-- Row 5 -->
+            <tr data-model="ns160" data-version="fi" data-comp="parcial" data-tags="ns 160 fi 2017 2018 2019 2020 2021 2022 2023 2024">
+              <td class="nm-ce-model-name">NS 160 FI</td>
+              <td>2017–2024</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+              </td>
+              <td>Todo menos tapas laterales, guardabarro tipo NS160</td>
+            </tr>
+            <!-- Row 6 -->
+            <tr data-model="ns200" data-version="ug-fi" data-comp="parcial" data-tags="ns 200 ug fi 2025">
+              <td class="nm-ce-model-name">NS 200 UG FI</td>
+              <td>2025</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+              </td>
+              <td>Carenaje con farola, guardabarro, cola y aletas</td>
+            </tr>
+            <!-- Row 7 -->
+            <tr data-model="ns160" data-version="ug-fi" data-comp="parcial" data-tags="ns 160 ug fi 2025">
+              <td class="nm-ce-model-name">NS 160 UG FI</td>
+              <td>2025</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+              </td>
+              <td>Carenaje con farola, guardabarro, cola y aletas</td>
+            </tr>
+            <!-- Row 8 -->
+            <tr data-model="ns200" data-version="ug-20" data-comp="parcial" data-tags="ns 200 ug 2.0 2026">
+              <td class="nm-ce-model-name">NS 200 UG 2.0</td>
+              <td>2026</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+              </td>
+              <td>Cola, aletas y caparasol / visor</td>
+            </tr>
+            <!-- Row 9 -->
+            <tr data-model="ns160" data-version="ug-20" data-comp="parcial" data-tags="ns 160 ug 2.0 2026">
+              <td class="nm-ce-model-name">NS 160 UG 2.0</td>
+              <td>2026</td>
+              <td>
+                <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+              </td>
+              <td>Cola, aletas y caparasol / visor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FICHAS POR MODELO DETALLADAS -->
+    <h2 class="nm-ce-section-title">Fichas técnicas de compatibilidad</h2>
+    <div class="nm-ce-cards-grid" id="nmCeCardsContainer">
+      
+      <!-- CARD 1 -->
+      <article class="nm-ce-card" data-model="ns200" data-version="carburada" data-comp="kit-completo" data-tags="ns 200 carburada 2012 2013 2014 2015 2016">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 200 carburada</h3>
+            <p class="nm-ce-card-years">Modelos 2012 a 2016</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-green"><span class="nm-ce-badge-dot"></span>Kit completo</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje con farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje sin farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardabarro delantero
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas de tanque / aletas
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas laterales
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Cola de sillín / Visor / Calcomanías
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit" style="color: var(--nm-ce-text-muted);">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                Sin restricciones principales
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">Modelo ideal para vender kit completo.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 200 carburada modelo 2012 a 2016 sí aplica el kit completo. Podemos ofrecerte carenaje con o sin farola, guardabarro, tapas de tanque, tapas laterales, cola, visor y aletas de tanque."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 200 carburada modelo 2012 a 2016 sí aplica el kit completo. Podemos ofrecerte carenaje con o sin farola, guardabarro, tapas de tanque, tapas laterales, cola, visor y aletas de tanque.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 2 -->
+      <article class="nm-ce-card" data-model="ns125" data-version="ug-20" data-comp="kit-completo" data-tags="ns 125 2024 2025 2026">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 125</h3>
+            <p class="nm-ce-card-years">Modelos 2024 a 2026</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-green"><span class="nm-ce-badge-dot"></span>Kit completo</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje con farola / sin farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardabarro delantero tipo NS160
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas de tanque / aletas
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas laterales / Cola de sillín / Visor
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                No incluir calcomanías
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">La NS 125 va sin calcomanías. No prometer calcomanías incluidas.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 125 modelo 2024 a 2026 sí tenemos kit compatible. Ten presente que esta referencia va sin calcomanías y el guardabarro corresponde al tipo NS160."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 125 modelo 2024 a 2026 sí tenemos kit compatible. Ten presente que esta referencia va sin calcomanías y el guardabarro corresponde al tipo NS160.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 3 -->
+      <article class="nm-ce-card" data-model="ns150" data-version="carburada" data-comp="kit-completo" data-tags="ns 150 carburada 2016 2017 2018 2019 2020">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 150 carburada</h3>
+            <p class="nm-ce-card-years">Modelos 2016 a 2020</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-green"><span class="nm-ce-badge-dot"></span>Kit completo</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje con farola / sin farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardabarro delantero tipo NS160
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas de tanque / aletas
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas laterales / Cola / Visor
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                No incluir calcomanías
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">La NS 150 va sin calcomanías. El guardabarro delantero es tipo NS160 porque es más angosto.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 150 carburada modelo 2016 a 2020 sí tenemos kit compatible. La diferencia principal es que usa guardabarro delantero tipo NS160 y esta referencia va sin calcomanías."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 150 carburada modelo 2016 a 2020 sí tenemos kit compatible. La diferencia principal es que usa guardabarro delantero tipo NS160 y esta referencia va sin calcomanías.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 4 -->
+      <article class="nm-ce-card" data-model="ns200" data-version="fi" data-comp="parcial" data-tags="ns 200 fi 2017 2018 2019 2020 2021 2022 2023 2024">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 200 FI</h3>
+            <p class="nm-ce-card-years">Modelos 2017 a 2024</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje con farola / sin farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardabarro delantero
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas de tanque
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Cola de sillín / Visor / Aletas de tanque
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Tapas laterales
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">No vender como kit completo si incluye tapas laterales.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 200 FI modelo 2017 a 2024 sí tenemos piezas compatibles, pero debes tener presente que las tapas laterales no aplican porque son diferentes en esta versión."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 200 FI modelo 2017 a 2024 sí tenemos piezas compatibles, pero debes tener presente que las tapas laterales no aplican porque son diferentes en esta versión.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 5 -->
+      <article class="nm-ce-card" data-model="ns160" data-version="fi" data-comp="parcial" data-tags="ns 160 fi 2017 2018 2019 2020 2021 2022 2023 2024">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 160 FI</h3>
+            <p class="nm-ce-card-years">Modelos 2017 a 2024</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje con farola / sin farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardabarro delantero tipo NS160
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Tapas de tanque
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Cola de sillín / Visor / Aletas de tanque
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Tapas laterales
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">El guardabarro delantero es más angosto. No confundir con NS 200.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 160 FI modelo 2017 a 2024 sí tenemos piezas compatibles. La diferencia es que no aplican tapas laterales y el guardabarro delantero es tipo NS160, más angosto."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 160 FI modelo 2017 a 2024 sí tenemos piezas compatibles. La diferencia es que no aplican tapas laterales y el guardabarro delantero es tipo NS160, más angosto.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 6 -->
+      <article class="nm-ce-card" data-model="ns200" data-version="ug-fi" data-comp="parcial" data-tags="ns 200 ug fi 2025">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 200 UG FI</h3>
+            <p class="nm-ce-card-years">Modelo 2025</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje con farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardabarro delantero
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Cola de sillín
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Aletas de tanque
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Tapas laterales
+              </li>
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Validar antes de ofrecer carenaje sin farola
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">No ofrecer tapas laterales. Validar carenaje sin farola antes de vender.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 200 UG FI modelo 2025 manejamos compatibilidad parcial. Le aplica carenaje con farola, guardabarro delantero, cola y aletas, pero no aplican tapas laterales."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 200 UG FI modelo 2025 manejamos compatibilidad parcial. Le aplica carenaje con farola, guardabarro delantero, cola y aletas, pero no aplican tapas laterales.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 7 -->
+      <article class="nm-ce-card" data-model="ns160" data-version="ug-fi" data-comp="parcial" data-tags="ns 160 ug fi 2025">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 160 UG FI</h3>
+            <p class="nm-ce-card-years">Modelo 2025</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Carenaje con farola
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardabarro delantero
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Cola de sillín
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Aletas de tanque
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Tapas laterales
+              </li>
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Validar antes de ofrecer carenaje sin farola
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">No ofrecer tapas laterales. Validar guardabarro correcto.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 160 UG FI modelo 2025 manejamos algunas piezas compatibles. Le aplica carenaje con farola, guardabarro, cola y aletas, pero no aplican tapas laterales."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 160 UG FI modelo 2025 manejamos algunas piezas compatibles. Le aplica carenaje con farola, guardabarro, cola y aletas, pero no aplican tapas laterales.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 8 -->
+      <article class="nm-ce-card" data-model="ns200" data-version="ug-20" data-comp="parcial" data-tags="ns 200 ug 2.0 2026">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 200 UG 2.0</h3>
+            <p class="nm-ce-card-years">Modelo 2026</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Cola de sillín
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Aletas de tanque
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Caparasol / visor
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Carenaje
+              </li>
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Guardabarro delantero
+              </li>
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Tapas laterales
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">No vender kit completo para UG 2.0.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 200 UG 2.0 modelo 2026 no aplica el kit completo. Solo manejamos piezas como cola de sillín, aletas de tanque y caparasol / visor."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 200 UG 2.0 modelo 2026 no aplica el kit completo. Solo manejamos piezas como cola de sillín, aletas de tanque y caparasol / visor.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 9 -->
+      <article class="nm-ce-card" data-model="ns160" data-version="ug-20" data-comp="parcial" data-tags="ns 160 ug 2.0 2026">
+        <div class="nm-ce-card-header">
+          <div class="nm-ce-card-title-group">
+            <h3>NS 160 UG 2.0</h3>
+            <p class="nm-ce-card-years">Modelo 2026</p>
+          </div>
+          <span class="nm-ce-badge nm-ce-badge-orange"><span class="nm-ce-badge-dot"></span>Parcial</span>
+        </div>
+        <div class="nm-ce-card-body">
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Cola de sillín
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Aletas de tanque
+              </li>
+              <li class="nm-ce-part-item nm-ce-fit">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Caparasol / visor
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nm-ce-parts-title">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              No le sirve
+            </h4>
+            <ul class="nm-ce-parts-list">
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Carenaje
+              </li>
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Guardabarro delantero
+              </li>
+              <li class="nm-ce-part-item nm-ce-nofit">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                Tapas laterales
+              </li>
+            </ul>
+          </div>
+          <div class="nm-ce-card-alert">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <div class="nm-ce-card-alert-content">No vender kit completo para UG 2.0.</div>
+          </div>
+          <div class="nm-ce-card-msg">
+            <div class="nm-ce-card-msg-title">Mensaje sugerido</div>
+            "Nómada motero, para tu Pulsar NS 160 UG 2.0 modelo 2026 no aplica el kit completo. Solo manejamos cola de sillín, aletas de tanque y caparasol / visor."
+          </div>
+        </div>
+        <div class="nm-ce-card-footer">
+          <button class="nm-ce-btn-copy" onclick="copySuggestedText(this, 'Nómada motero, para tu Pulsar NS 160 UG 2.0 modelo 2026 no aplica el kit completo. Solo manejamos cola de sillín, aletas de tanque y caparasol / visor.')">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copiar mensaje
+          </button>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- GUÍA VISUAL DE COMPONENTES -->
+    <h2 class="nm-ce-section-title">Guía visual de componentes</h2>
+    <div class="nm-ce-components-grid">
+      
+      <!-- Component 1 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Inline SVG graphic representing fairing/shield -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z"/>
+          </svg>
+        </div>
+        <h4>Carenaje con farola</h4>
+        <p>Pieza frontal que renueva la apariencia delantera de la moto.</p>
+      </div>
+
+      <!-- Component 2 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Fairing without headlight SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13.09L5 12.27V10.7l7 3.82 7-3.82v1.57l-7 3.82z"/>
+          </svg>
+        </div>
+        <h4>Carenaje sin farola</h4>
+        <p>Versión frontal sin farola. Antes de venderla, validar modelo y año.</p>
+      </div>
+
+      <!-- Component 3 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Mudguard / fender SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 10h3l-4 4-4-4h3V8h2v4z"/>
+          </svg>
+        </div>
+        <h4>Guardabarro delantero</h4>
+        <p>En NS 160, NS 150 y NS 125 se debe validar que sea tipo NS160 porque es más angosto.</p>
+      </div>
+
+      <!-- Component 4 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Tank cover SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M19.07 4.93l-1.41 1.41C19.1 7.79 20 9.79 20 12c0 4.42-3.58 8-8 8s-8-3.58-8-8c0-2.21.9-4.21 2.34-5.66L4.93 4.93C3.12 6.73 2 9.24 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10c0-2.76-1.12-5.27-2.93-7.07zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>
+          </svg>
+        </div>
+        <h4>Tapas de tanque</h4>
+        <p>Piezas laterales superiores que recuperan volumen y presencia visual.</p>
+      </div>
+
+      <!-- Component 5 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Side panels SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 9h16v9H4V9z"/>
+          </svg>
+        </div>
+        <h4>Tapas laterales</h4>
+        <p>No aplican en todas las versiones. Cuidado con NS 200 FI, NS 160 FI, UG FI y UG 2.0.</p>
+      </div>
+
+      <!-- Component 6 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Tail seat cover SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c3.9 3.51 10.02 3.2 13.53-.7 2.9-3.23 3.12-8.08.66-11.56L16.4 9.3c1.64 2.22 1.45 5.34-.56 7.34-2.26 2.26-5.83 2.11-7.9-.33L12 12V3z"/>
+          </svg>
+        </div>
+        <h4>Cola de sillín</h4>
+        <p>Pieza trasera que mejora la línea deportiva de la moto.</p>
+      </div>
+
+      <!-- Component 7 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Visor SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2.02c-5.51 0-9.98 4.47-9.98 9.98s4.47 9.98 9.98 9.98 9.98-4.47 9.98-9.98-4.47-9.98-9.98-9.98zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+          </svg>
+        </div>
+        <h4>Visor / caparasol</h4>
+        <p>Complemento frontal o superior, según referencia.</p>
+      </div>
+
+      <!-- Component 8 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Tank wing SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+        </div>
+        <h4>Aletas de tanque</h4>
+        <p>Piezas laterales que refuerzan el diseño agresivo de la Pulsar NS.</p>
+      </div>
+
+      <!-- Component 9 -->
+      <div class="nm-ce-component-card">
+        <div class="nm-ce-component-img">
+          <!-- Decals SVG -->
+          <svg viewBox="0 0 24 24">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14c-.16-.64-.26-1.31-.26-2s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 0 1 5.08 16zm2.95-8H5.08a7.987 7.987 0 0 1 3.07-3.56C7.55 5.68 7.09 6.88 6.78 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.19 14H9.81c-.09-.67-.15-1.34-.15-2 0-.66.06-1.33.15-2h4.38c.09.67.15 1.34.15 2 0 .66-.06 1.33-.15 2zm.89 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+          </svg>
+        </div>
+        <h4>Calcomanías</h4>
+        <p>No aplican en NS 125 ni NS 150. En otras referencias validar disponibilidad.</p>
+      </div>
+
+    </div>
+
+    <!-- COLORES DISPONIBLES -->
+    <h2 class="nm-ce-section-title">Colores disponibles</h2>
+    <div class="nm-ce-colors-box">
+      <div class="nm-ce-colors-list">
+        <div class="nm-ce-color-swatch-item">
+          <div class="nm-ce-color-dot" style="background-color: #000000;"></div>
+          Negro
+        </div>
+        <div class="nm-ce-color-swatch-item">
+          <div class="nm-ce-color-dot" style="background-color: #e53e3e;"></div>
+          Rojo
+        </div>
+        <div class="nm-ce-color-swatch-item">
+          <div class="nm-ce-color-dot" style="background-color: #800020;"></div>
+          Rojo cherry
+        </div>
+        <div class="nm-ce-color-swatch-item">
+          <div class="nm-ce-color-dot" style="background-color: #ffffff; border: 1px solid #cbd5e0;"></div>
+          Blanco
+        </div>
+        <div class="nm-ce-color-swatch-item">
+          <div class="nm-ce-color-dot" style="background-color: #3182ce;"></div>
+          Azul
+        </div>
+      </div>
+      <div class="nm-ce-note-box">
+        <strong>Nota interna:</strong> El color puede variar ligeramente por iluminación, lote de fabricación o acabado de fábrica. No prometer exactitud absoluta de tono sin foto real del producto en bodega.
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE ALERTAS DE ERROR -->
+    <section class="nm-ce-warnings-container">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        Alertas críticas para evitar errores de venta
+      </h3>
+      <div class="nm-ce-warnings-grid">
+        <div class="nm-ce-warning-card">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div class="nm-ce-warning-card-text">No vender como kit completo cuando la moto sea <strong>NS 200 FI 2017–2024</strong>. (Cambian tapas laterales).</div>
+        </div>
+        <div class="nm-ce-warning-card">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div class="nm-ce-warning-card-text">No vender como kit completo cuando sea <strong>NS 160 FI 2017–2024</strong>.</div>
+        </div>
+        <div class="nm-ce-warning-card">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div class="nm-ce-warning-card-text">No vender kit completo para <strong>NS 200 UG FI 2025</strong> o <strong>NS 160 UG FI 2025</strong>.</div>
+        </div>
+        <div class="nm-ce-warning-card">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div class="nm-ce-warning-card-text">No vender kit completo para <strong>NS 200 UG 2.0 2026</strong> o <strong>NS 160 UG 2.0 2026</strong>.</div>
+        </div>
+        <div class="nm-ce-warning-card">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div class="nm-ce-warning-card-text"><strong>No prometer calcomanías</strong> en modelos NS 125 ni NS 150.</div>
+        </div>
+        <div class="nm-ce-warning-card">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div class="nm-ce-warning-card-text"><strong>No confundir Pulsar NS con Pulsar N</strong>. Esta guía no aplica para N150, N160, N125, P150, RS, Pulsar 135 u otras referencias.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLUJO RÁPIDO DE DECISIÓN -->
+    <h2 class="nm-ce-section-title">Flujo rápido de decisión</h2>
+    <div class="nm-ce-flow-container">
+      <div class="nm-ce-flow-steps">
+        <div class="nm-ce-flow-step">
+          <div class="nm-ce-flow-step-number">1</div>
+          <span>Cliente pregunta por kit Pulsar NS</span>
+        </div>
+        <div class="nm-ce-flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/></svg>
+        </div>
+        <div class="nm-ce-flow-step">
+          <div class="nm-ce-flow-step-number">2</div>
+          <span>Preguntar Modelo exacto + Año</span>
+        </div>
+        <div class="nm-ce-flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/></svg>
+        </div>
+        <div class="nm-ce-flow-step">
+          <div class="nm-ce-flow-step-number">3</div>
+          <span>Preguntar Versión (carburada/FI/UG)</span>
+        </div>
+        <div class="nm-ce-flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/></svg>
+        </div>
+        <div class="nm-ce-flow-step">
+          <div class="nm-ce-flow-step-number">4</div>
+          <span>Buscar en Matriz / Confirmar kit</span>
+        </div>
+        <div class="nm-ce-flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/></svg>
+        </div>
+        <div class="nm-ce-flow-step">
+          <div class="nm-ce-flow-step-number">5</div>
+          <span>Validar Color + Farola + Calcas</span>
+        </div>
+        <div class="nm-ce-flow-arrow">
+          <svg viewBox="0 0 24 24"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/></svg>
+        </div>
+        <div class="nm-ce-flow-step" style="background-color: var(--nm-ce-brand-red-light); border-color: var(--nm-ce-brand-red);">
+          <div class="nm-ce-flow-step-number" style="background-color: var(--nm-ce-brand-red);">6</div>
+          <span style="color: var(--nm-ce-brand-red-hover);">Cotizar precio y disponibilidad</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJES RÁPIDOS PARA WHATSAPP -->
+    <h2 class="nm-ce-section-title">Copiar respuestas rápidas de WhatsApp</h2>
+    <div class="nm-ce-whatsapp-hub">
+      
+      <!-- Template 1 -->
+      <div class="nm-ce-whatsapp-template">
+        <h4>1. Cuando sí aplica kit completo</h4>
+        <pre id="nmCeMsg1">Nómada motero 🔥
+Para tu Pulsar NS sí aplica kit completo.
+
+Podemos manejar carenaje, guardabarro delantero, tapas de tanque, tapas laterales, cola de sillín, visor y aletas de tanque.
+
+Solo confirmo color y si la quieres con farola o sin farola para pasarte disponibilidad.</pre>
+        <button class="nm-ce-btn-copy" onclick="copySuggestedTextById(this, 'nmCeMsg1')">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copiar mensaje
+        </button>
+      </div>
+
+      <!-- Template 2 -->
+      <div class="nm-ce-whatsapp-template">
+        <h4>2. Cuando aplica parcial</h4>
+        <pre id="nmCeMsg2">Nómada motero 🔥
+Para tu Pulsar NS sí tenemos piezas compatibles, pero no aplica el kit completo.
+
+Según tu modelo, algunas piezas cambian, por eso te confirmo exactamente cuáles te sirven antes de tomar el pedido.</pre>
+        <button class="nm-ce-btn-copy" onclick="copySuggestedTextById(this, 'nmCeMsg2')">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copiar mensaje
+        </button>
+      </div>
+
+      <!-- Template 3 -->
+      <div class="nm-ce-whatsapp-template">
+        <h4>3. Sin tapas laterales</h4>
+        <pre id="nmCeMsg3">Nómada motero, te confirmo algo importante:
+Para esa versión no aplican tapas laterales, ya que cambian según el modelo.
+
+Sí podemos ofrecerte las piezas compatibles como carenaje, guardabarro, tapas de tanque, cola, visor o aletas, según disponibilidad.</pre>
+        <button class="nm-ce-btn-copy" onclick="copySuggestedTextById(this, 'nmCeMsg3')">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copiar mensaje
+        </button>
+      </div>
+
+      <!-- Template 4 -->
+      <div class="nm-ce-whatsapp-template">
+        <h4>4. Cuando es NS 125 o NS 150</h4>
+        <pre id="nmCeMsg4">Nómada motero 🔥
+Sí tenemos kit compatible para tu referencia.
+
+Importante: la NS 125 y NS 150 van sin calcomanías. El resto de piezas se valida según el año y versión de tu moto.</pre>
+        <button class="nm-ce-btn-copy" onclick="copySuggestedTextById(this, 'nmCeMsg4')">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copiar mensaje
+        </button>
+      </div>
+
+      <!-- Template 5 -->
+      <div class="nm-ce-whatsapp-template">
+        <h4>5. Cuando es UG 2.0 2026</h4>
+        <pre id="nmCeMsg5">Nómada motero, para la UG 2.0 modelo 2026 no aplica el kit completo.
+
+En esta versión solo manejamos algunas piezas como cola de sillín, aletas de tanque y caparasol / visor.</pre>
+        <button class="nm-ce-btn-copy" onclick="copySuggestedTextById(this, 'nmCeMsg5')">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copiar mensaje
+        </button>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="nm-ce-footer">
+      <div class="nm-ce-footer-logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z"/>
+        </svg>
+        <span>NÓMADA MOTOPARTES</span>
+      </div>
+      <p>Centro de Experiencia Interno — Guía Pulsar NS</p>
+      <p class="nm-ce-footer-subtext">Guía de compatibilidad de consulta exclusiva para asesores, WhatsApp y bodega.</p>
+    </footer>
+
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATION -->
+  <div class="nm-ce-toast" id="nmCeToast">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+    </svg>
+    <span>Mensaje copiado con éxito</span>
+  </div>
+
+  <script>
+    // TOAST LOGIC
+    function showToast() {
+      const toast = document.getElementById('nmCeToast');
+      toast.classList.add('nm-ce-show');
+      setTimeout(() => {
+        toast.classList.remove('nm-ce-show');
+      }, 2500);
+    }
+
+    // COPY TEXT LOGIC
+    function copySuggestedText(button, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast();
+        // Visual button feedback
+        const originalHtml = button.innerHTML;
+        button.innerHTML = `<svg viewBox="0 0 24 24" style="fill: #38a169;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Copiado`;
+        button.style.backgroundColor = '#2d3748';
+        setTimeout(() => {
+          button.innerHTML = originalHtml;
+          button.style.backgroundColor = '';
+        }, 2000);
+      }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+      });
+    }
+
+    function copySuggestedTextById(button, elementId) {
+      const text = document.getElementById(elementId).innerText;
+      copySuggestedText(button, text);
+    }
+
+    // FILTER AND SEARCH SYSTEM
+    const searchInput = document.getElementById('nmCeSearch');
+    const chips = document.querySelectorAll('.nm-ce-chip');
+    
+    // Data list representing models for exact tag filtering
+    const matrixRows = document.querySelectorAll('#nmCeMatrixBody tr');
+    const cards = document.querySelectorAll('#nmCeCardsContainer .nm-ce-card');
+    
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    // Click handler for chips
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('nm-ce-active', 'nm-ce-active-red'));
+        
+        activeFilter = chip.getAttribute('data-filter');
+        
+        // Use brand red styling for specific active chips or black for basic ones
+        if (activeFilter === 'all') {
+          chip.classList.add('nm-ce-active');
+        } else {
+          chip.classList.add('nm-ce-active-red');
+        }
+        
+        applyFilters();
+      });
+    });
+
+    // Input handler for search
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      applyFilters();
+    });
+
+    // Main filtering machine
+    function applyFilters() {
+      let visibleCount = 0;
+
+      // Filter function for rows and cards
+      function checkMatch(element) {
+        // Retrieve tags, model, version and compatibility
+        const tags = element.getAttribute('data-tags').toLowerCase();
+        const model = element.getAttribute('data-model');
+        const version = element.getAttribute('data-version');
+        const comp = element.getAttribute('data-comp');
+        
+        // 1. Check Search Query Match
+        let matchesSearch = true;
+        if (searchQuery !== '') {
+          // Check if search query matches tags (tags include: name, version, years)
+          matchesSearch = tags.includes(searchQuery);
+        }
+
+        // 2. Check Chip Filter Match
+        let matchesChip = true;
+        if (activeFilter !== 'all') {
+          if (activeFilter === 'kit-completo' && comp !== 'kit-completo') matchesChip = false;
+          else if (activeFilter === 'parcial' && comp !== 'parcial') matchesChip = false;
+          else if (activeFilter === 'ns125' && model !== 'ns125') matchesChip = false;
+          else if (activeFilter === 'ns150' && model !== 'ns150') matchesChip = false;
+          else if (activeFilter === 'ns160' && model !== 'ns160') matchesChip = false;
+          else if (activeFilter === 'ns200' && model !== 'ns200') matchesChip = false;
+          else if (activeFilter === 'carburada' && version !== 'carburada') matchesChip = false;
+          else if (activeFilter === 'fi' && version !== 'fi') matchesChip = false;
+          else if (activeFilter === 'ug-fi' && version !== 'ug-fi') matchesChip = false;
+          else if (activeFilter === 'ug-20' && version !== 'ug-20') matchesChip = false;
+        }
+
+        return matchesSearch && matchesChip;
+      }
+
+      // Filter Matrix Table rows
+      matrixRows.forEach(row => {
+        if (checkMatch(row)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      // Filter Fichas / Cards
+      cards.forEach(card => {
+        if (checkMatch(card)) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Handle Empty State visual indicator
+      const emptyState = document.getElementById('nmCeEmptyState');
+      if (visibleCount === 0) {
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
